@@ -1,0 +1,100 @@
+.popup-widget {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-login-content {
+  background-color: #ffffff;
+  width: 400px;
+  height: 440px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.popup-login-content .popup-widget-top {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.popup-login-content .popup-widget-top .logo {
+  height: 60px;
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+.popup-login-content .popup-widget-top #app-name {
+  margin-top: 20px;
+}
+
+.popup-login-content .popup-widget-top button {
+  border: none;
+  background-color: transparent;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.popup-login-content form {
+  display: flex;
+  flex-direction: column;
+  width: 84%;
+  margin-left: 8%;
+}
+
+.popup-login-content form label {
+  color: #043588;
+  margin-top: 10px;
+}
+
+.popup-login-content form .inputForm {
+  border: 2px solid #347FFF;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 5px 0px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.popup-login-content form .inputForm input {
+  border: none;
+  width: 90%;
+  margin-left: 5px;
+  font-size: 15px;
+  outline: none;
+}
+
+.popup-login-content .errorField {
+  color: #FA0C0C;
+  font-size: 12px;
+  margin: -10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.popup-login-content form button {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  width: 84%;
+  border: none;
+  background-color: #4392D3;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 8px 0px;
+}
+
+.popup-login-content form button:hover {
+  background-color: #043588;
+}

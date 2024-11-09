@@ -1,0 +1,176 @@
+.landing-page-header {
+    width: 100%;
+    height: 10vh;
+    min-height: 60px;
+    align-items: center;
+    background-color: #90DCE7;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+
+    font-family: 'Inter', sans-serif;
+}
+
+.landing-page-header .logo {
+    margin-left: 2%;
+    height: 70%;
+    width: calc(height * 0.75);
+}
+
+.loginBtn,
+.signupBtn {
+    border-radius: 50px;
+    padding: 8px 2.5vw;
+    border: none;
+    font-size: 100%;
+    font-weight: 600;
+    margin-right: 2%;
+}
+
+.loginBtn {
+    color: #0375D2;
+    margin-left: auto;
+}
+
+.loginBtn:hover {
+    background-color: #e8e7e7;
+}
+
+.signupBtn {
+    color: #FFFFFF;
+    background-color: #0375D2;
+}
+
+.signupBtn:hover {
+    background-color: #085ea4;
+}
+
+.addNoteBtn {
+    background: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    border: 3px solid #148FF4;
+    border-radius: 20px;
+    margin-right: 3%;
+    height: 60%;
+}
+
+.addNoteBtn:hover {
+    background-color: #e8e7e7;
+}
+
+.addNoteBtn p {
+    color: #000;
+    font-size: 15px;
+}
+
+.addNoteBtn i {
+    color: #148FF4;
+    font-size: 34px;
+    padding-right: 10px;
+}
+
+.infoBtn {
+    height: 80%;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+    border: 3px solid #148FF4;
+    margin-right: 2%;
+}
+
+
+
+.note-page-header {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+}
+
+.note-page-header-content {
+    width: 100%;
+    height: 10vh;
+    min-height: 60px;
+    align-items: center;
+    background-color: #90DCE7;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.note-page-header .logo {
+    margin-left: 2%;
+    height: 70%;
+    width: calc(height * 0.75);
+}
+
+.note-page-header .user-info {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    height: 300px;
+    margin-left: auto;
+    border: 3px solid #B2A9A9;
+    border-top: none;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #FFF;
+}
+
+.note-page-header .user-info p.name {
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    padding-top: 10px;
+    width: 80%;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.note-page-header .user-info p.email {
+    padding-bottom: 10px;
+    margin-top: -15px;
+    border-bottom: 1px solid #A7A7A7;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 15px;
+    width: 80%;
+}
+
+.note-page-header .user-info button {
+    margin-top: 15px;
+    border-radius: 20px;
+    width: 80%;
+    border: none;
+    background-color: #D9D9D9;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px 0px;
+}
+
+.note-page-header .user-info button:hover {
+    background-color: #5ec0f9;
+}
+
+.note-page-header .user-info button:last-child {
+    margin-top: 15px;
+    width: 80%;
+    border: none;
+    color: #1F707C;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.note-page-header .user-info button:last-child:hover {
+    text-decoration: underline;
+}

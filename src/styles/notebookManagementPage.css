@@ -1,0 +1,15 @@
+.notebook-management-page {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.notebook-management-content {
+    margin-top: 10vh;
+    width: 70%;
+}
+
+.notebook-management-content h2 {
+    color: #0C5B9C;
+}
