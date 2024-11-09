@@ -174,3 +174,81 @@
 .note-page-header .user-info button:last-child:hover {
     text-decoration: underline;
 }
+
+.create-notebook-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-notebook-modal form {
+    background-color: #DCF9FB;
+    width: 500px;
+    height: 200px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.create-notebook-modal .close-modal {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.create-notebook-modal form div {
+    margin-top: 12%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.create-notebook-modal form div p {
+    color: #06AEAB;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.create-notebook-modal form div input {
+    width: 60%;
+    height: 30px;
+    border-radius: 15px;
+    border: 2px solid #347FFF;
+    background: #FFF;
+    margin-right: 10px;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0375D2;
+}
+
+.create-notebook-modal form div input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.create-notebook-modal form .submit-btn {
+    width: 20%;
+    height: 14%;
+    margin-left: 40%;
+    margin-top: 20px;
+    border-radius: 15px;
+    background: #06AEAB;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.create-notebook-modal form .submit-btn:hover {
+    background-color: #2258b7;
+}

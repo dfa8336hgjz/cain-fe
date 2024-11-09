@@ -1,38 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GridNoteList from "../components/GridNotebookList";
 import HeaderNoteManagementPage from "../components/headers/HeaderNoteManagementPage";
 import '../styles/notebookManagementPage.css'
+import API_URL from "../services/config";
+import axios from "axios";
 
 const NotebookManagementPage = () => {
     const [searchKeyword, setSearchKeyword] = useState('')
 
-    const data = [
-        {
-            title: 'Note 1fsghhjuyjtukyi',
-            createdAt: '2022-01-01',
-            notebookId: '1'
+    const [data, setData] = useState([])
 
-        },
-        {
-            title: 'Note 2',
-            createdAt: '2022-01-02',
-            notebookId: '2'
-        },
-        {
-            title: 'Note 3',
-            createdAt: '2022-01-03',
-            notebookId: '2'
-        },
-        {
-            title: 'Note 4',
-            createdAt: '2022-01-04',
-            notebookId: '2'
-        },
-        {
-            title: 'Note 5',
-            createdAt: '2022-01-05',
-            notebookId: '2'
-        }]
+    useEffect(() => {
+        const fetchData = async () => {
+            if (localStorage.getItem('token')) {
+                try {
+                    const response = await axios.get(`http://${API_URL}/user/all_notebooks`,
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            },
+                            withCredentials: true,
+                        }
+                    )
+                    if (response.status === 200) {
+                        setData(response.data)
+                    }
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+        }
+        fetchData();
+    }, [])
 
     return (
         <div className="notebook-management-page">
@@ -52,8 +52,7 @@ const NotebookManagementPage = () => {
                             }
                             else
                                 setSearchKeyword(e.target.value)
-                        }
-                        }
+                        }}
                     />
                 </div>
                 <GridNoteList noteList={data} searchKeyword={searchKeyword} />

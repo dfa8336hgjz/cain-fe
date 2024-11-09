@@ -33,7 +33,7 @@ const GridNoteList = ({ noteList, searchKeyword = "" }) => {
         <div style={{ position: 'relative' }}>
             {noteList.length === 0 ? (
                 <div style={{ textAlign: 'center' }}>
-                    <p className='no-notebook'>No notebooks found.</p>
+                    <p className='no-notebook'>Let's add a new notebook</p>
                 </div>
             ) : (
                 noteList.filter((note) => note.title.toLowerCase().includes(searchKeyword.toLowerCase())).length === 0 ? (
@@ -64,11 +64,9 @@ const GridNoteList = ({ noteList, searchKeyword = "" }) => {
                             if (note.title.toLowerCase().includes(searchKeyword.toLowerCase())) {
                                 return (
                                     <NotebookItem
-                                        key={note.noteId}
-                                        noteId={note.noteId}
                                         title={note.title}
-                                        createdAt={note.createdAt}
-                                        notebookId={note.notebookId}
+                                        createdAt={note.created_at}
+                                        notebookId={note.notebook_id}
                                     />
                                 );
                             }

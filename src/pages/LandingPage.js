@@ -1,5 +1,7 @@
 import HeaderLandingPage from '../components/headers/HeaderLandingPage';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import API_URL from '../services/config';
 import logo from '../assets/logo.png'
 import instagramIcon from '../assets/icons/instagram.png'
 import facebookIcon from '../assets/icons/facebook.png'
@@ -15,10 +17,31 @@ function LandingPage() {
     const [signupPopup, setSignupPopup] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            navigate('/notebooks');
+        const checkToken = async () => {
+            if (localStorage.getItem('token')) {
+                try {
+                    const response = await axios.post(`http://${API_URL}/auth/check_token`, {},
+                        {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            },
+                            withCredentials: true,
+                        }
+                    )
+                    if (response.status === 200) {
+                        navigate('/notebooks');
+                        console.log(response)
+                    }
+                }
+                catch (err) {
+                    console.log("Expired token")
+                    localStorage.removeItem('token');
+                }
+            }
         }
-    })
+        checkToken();
+    }, [])
 
     return (
         <div className="landing-page">

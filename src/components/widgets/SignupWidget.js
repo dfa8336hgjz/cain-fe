@@ -5,10 +5,12 @@ import { ReactComponent as EyeCloseIcon } from '../../assets/icons/eyeClose.svg'
 import Success from '../../assets/success.gif'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import API_URL from '../../services/config'
 import '../../styles/signupWidget.css'
 
 function SignupWidget({ onClick }) {
+    const navigate = useNavigate();
     const [errorText, setErrorText] = useState({
         username: "",
         password: "",
@@ -106,9 +108,9 @@ function SignupWidget({ onClick }) {
     }
 
     return (
-        <div className='popup-widget'>
+        <div className='modal-widget'>
             <div className='popup-signup-content'>
-                <div className="popup-widget-top">
+                <div className="modal-widget-top">
                     <img src={logo} alt="logo" className='logo' />
                     <h1 id="app-name">CAIN</h1>
                     <button onClick={() => onClick(false)}>

@@ -5,16 +5,25 @@ import { formatDate } from "../services/timeSupport";
 const NotebookItem = ({ title, createdAt, notebookId }) => {
     const [isPopup, setPopup] = useState(false);
     const modalRef = useRef();
-
+    const buttonRef = useRef();
 
     const closeModal = () => {
         setPopup(false);
     };
 
     const handleClickOutside = (event) => {
-        if (modalRef.current && !modalRef.current.contains(event.target)) {
+        if (modalRef.current && !modalRef.current.contains(event.target)
+            && buttonRef.current && !buttonRef.current.contains(event.target)) {
             closeModal();
         }
+    }
+
+    const handleDelete = async () => {
+
+    }
+
+    const handleRename = async () => {
+
     }
 
     useEffect(() => {
@@ -26,7 +35,7 @@ const NotebookItem = ({ title, createdAt, notebookId }) => {
 
     return (
         <button className="notebook-item">
-            <div onClick={() => setPopup((prev) => !prev)}>
+            <div onClick={() => setPopup((prev) => !prev)} ref={buttonRef}>
                 <img src={threedot} alt="Options" />
             </div>
             <a className="notebook-item-title" href={`/notebook/${notebookId}`}>{title}</a>
@@ -37,6 +46,7 @@ const NotebookItem = ({ title, createdAt, notebookId }) => {
                     <button>Rename</button>
                 </div>
             ) : null}
+
         </button>
     );
 };

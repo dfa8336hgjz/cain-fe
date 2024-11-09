@@ -13,3 +13,16 @@
 .notebook-management-content h2 {
     color: #0C5B9C;
 }
+
+.notebook-modal-widget {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

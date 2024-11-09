@@ -34,7 +34,8 @@ function LoginWidget({ onClick }) {
                 )
                 if (response.status === 200) {
                     setErrorText({ ...errorText, password: "" })
-                    localStorage.setItem('token', response.data.token)
+                    console.log("Login success")
+                    localStorage.setItem('token', response.data)
                     navigate('/notebooks')
                 }
             }
@@ -73,9 +74,9 @@ function LoginWidget({ onClick }) {
     }
 
     return (
-        <div className='popup-widget'>
+        <div className='modal-widget'>
             <div className='popup-login-content'>
-                <div className="popup-widget-top">
+                <div className="modal-widget-top">
                     <img src={logo} alt="logo" className='logo' />
                     <h1 id="app-name">CAIN</h1>
                     <button onClick={() => onClick(false)}>
