@@ -1,0 +1,490 @@
+.notebook-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.sidebar {
+    height: 100%;
+    width: 2vw;
+    min-width: 70px;
+
+    /* background-color: #AFE7EF; */
+    background-color: #49D0DF;
+    transition: width 0.3s ease;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+.sidebar-header .logo {
+    margin-left: 10px;
+    height: 50px;
+    width: calc(height * 0.75);
+}
+
+.sidebar-content {
+    height: calc(100% - 100px);
+    display: block;
+}
+
+.sidebar-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+
+    background-color: #378CC1;
+    color: white;
+    font-size: 16px;
+    border: none;
+}
+
+.sidebar-footer:hover {
+    cursor: pointer;
+    background-color: #2083c2;
+}
+
+.sidebar-footer .back-icon {
+    height: 60%;
+    width: calc(height * 0.75);
+}
+
+.notebook-page-content {
+    height: 100%;
+    display: block;
+    flex: 1;
+}
+
+.sidebar.open {
+    width: 16vw;
+    min-width: 200px;
+    background-color: #AFE7EF;
+}
+
+.header-notebook-page {
+    height: 60px;
+    width: 100%;
+    background-color: #49D0DF;
+    display: flex;
+    align-items: center;
+}
+
+.header-notebook-page p {
+    margin-left: 40px;
+}
+
+.sidebar-toggle {
+    margin-left: 20px;
+    height: 27px;
+    width: 27px;
+    cursor: pointer;
+}
+
+.add-file-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    background-color: #378CC1;
+    border: none;
+}
+
+.add-file-button p:first-child {
+    margin-left: 20px;
+    border-radius: 5px;
+    background-color: white;
+    color: #378CC1;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.add-file-button p:last-child {
+    color: white;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+.file-item:hover {
+    background-color: #7DCCDC;
+}
+
+.file-item .checkbox {
+    margin-left: 20px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-item .checkbox-checked {
+    width: 12px;
+    height: 12px;
+    background-color: #378CC1;
+}
+
+.file-item>p {
+    margin-left: 10px;
+    color: #000000;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 60%;
+}
+
+.picked {
+    background-color: #7DCCDC;
+}
+
+.message-field {
+    display: flex;
+    justify-content: center;
+    height: calc(100% - 60px);
+    position: relative;
+}
+
+.chat-field {
+    width: 80%;
+    height: 80px;
+    background-color: #49D0DF;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: absolute;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-field .chatbox {
+    width: 80%;
+    background-color: #ffffff;
+    height: 55%;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.chat-field .chatbox input {
+    margin-left: 30px;
+    width: calc(100% - 80px);
+    font-size: 17px;
+    height: 90%;
+    border: none;
+    color: #379aa5;
+}
+
+.chat-field .chatbox input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.chat-field .chatbox button {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #49D0DF;
+}
+
+.chat-field .chatbox button:hover {
+    background-color: #2b929e;
+}
+
+.notebook-page-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.notebook-page-modal-container .notebook-page-modal {
+    border-radius: 20px;
+    background-color: #DCF9FB;
+    position: relative;
+}
+
+.notebook-page-modal-container .notebook-page-modal button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.notebook-page-modal-container .notebook-page-modal .modal-title {
+    color: #378CC1;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 40px;
+    margin-left: 5%;
+}
+
+.upload-click-field {
+    display: flex;
+    margin-left: 5%;
+    border: 2px dashed #000000;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    width: 90%;
+    height: 70%;
+    cursor: pointer;
+}
+
+.upload-button {
+    background-color: #B1F1F6;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.message-box {
+    width: 100%;
+    height: calc(100% - 110px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.message-box .human-message {
+    background-color: #7CE8F4;
+    max-width: 50%;
+    padding: 0px 20px;
+    align-self: flex-end;
+    margin-right: 12%;
+    border-radius: 15px 15px 0px 15px;
+    margin-bottom: 15px;
+}
+
+.message-box .bot-message {
+    background-color: #F0F0F0;
+    max-width: 50%;
+    padding: 0px 20px;
+    align-self: flex-start;
+    margin-left: 12%;
+    border-radius: 15px 15px 15px 0px;
+    margin-bottom: 15px;
+}
+
+.message-box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.message-box::-webkit-scrollbar-track {
+    background: #eaeaea;
+    border-radius: 8px;
+}
+
+.message-box::-webkit-scrollbar-thumb {
+    background-color: #49D0DF;
+    border-radius: 8px;
+}
+
+.message-box::-webkit-scrollbar-thumb:hover {
+    background-color: #2b929e;
+}
+
+.header-notebook-page .infoBtn {
+    margin-left: auto;
+}
+
+.header-notebook-page .user-info {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    height: 250px;
+    border: 3px solid #B2A9A9;
+    border-top: none;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #FFF;
+    z-index: 1;
+    position: absolute;
+    top: 60px;
+    right: 0;
+}
+
+.header-notebook-page .user-info p.name {
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    padding-top: 10px;
+    width: 80%;
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: auto;
+}
+
+.header-notebook-page .user-info p.email {
+    padding-bottom: 10px;
+    margin-top: -15px;
+    border-bottom: 1px solid #A7A7A7;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 15px;
+    width: 80%;
+    margin-right: auto;
+}
+
+.header-notebook-page .user-info button {
+    margin-top: 15px;
+    border-radius: 20px;
+    width: 80%;
+    border: none;
+    background-color: #D9D9D9;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px 0px;
+}
+
+.header-notebook-page .user-info button:hover {
+    background-color: #5ec0f9;
+}
+
+.header-notebook-page .user-info button:last-child {
+    margin-top: 15px;
+    width: 80%;
+    border: none;
+    color: #1F707C;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.header-notebook-page .user-info button:last-child:hover {
+    text-decoration: underline;
+}
+
+.notebook-name {
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 2%;
+    color: #313131;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: transparent;
+    border: none;
+    width: auto;
+    border-radius: 10px;
+}
+
+.notebook-name:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    background-color: #7CE8F4;
+}
+
+.notebook-name:hover {
+    background-color: #7CE8F4;
+}
+
+.clear-chat-button {
+    margin-right: 5%;
+    border: none;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    height: 50%;
+    aspect-ratio: 1/1;
+    padding: 8px 10px 10px 10px;
+}
+
+.clear-chat-button:hover {
+    background-color: #eb5845;
+}
+
+.upload-click-field>p:not(.error) {
+    color: #313131;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.file-list {
+    overflow-y: hidden;
+    overflow: auto;
+    height: calc(100% - 110px);
+    width: 100%;
+}
+
+.file-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.file-list::-webkit-scrollbar-track {
+    background: #eaeaea;
+    border-radius: 8px;
+}
+
+.file-list::-webkit-scrollbar-thumb {
+    background-color: #a1a8aa;
+    border-radius: 8px;
+}
+
+.file-list::-webkit-scrollbar-thumb:hover {
+    background-color: #2b929e;
+}
+
+.clear-chat-modal-button {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.clear-chat-modal-button>div {
+    color: #ffffff;
+    background-color: #2b929e;
+    font-size: 18px;
+    padding: 3px 30px;
+    border-radius: 10px;
+}
+
+.clear-chat-modal-button>div:hover {
+    background-color: #1d7cbc;
+    cursor: pointer;
+}
+
+.clear-chat-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #06AEAB;
+}

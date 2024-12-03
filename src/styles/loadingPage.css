@@ -1,0 +1,8 @@
+.loading-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(123, 245, 245, 0.322);
+}

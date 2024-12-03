@@ -16,6 +16,7 @@ function LandingPage() {
     const [loginPopup, setLoginPopup] = useState(false);
     const [signupPopup, setSignupPopup] = useState(false);
     const navigate = useNavigate();
+
     useEffect(() => {
         const checkToken = async () => {
             if (localStorage.getItem('token')) {
@@ -31,7 +32,6 @@ function LandingPage() {
                     )
                     if (response.status === 200) {
                         navigate('/notebooks');
-                        console.log(response)
                     }
                 }
                 catch (err) {

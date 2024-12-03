@@ -1,53 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
-import threedot from "../assets/three_dot.png";
+import { ReactComponent as Trash } from '../assets/icons/trash.svg'
 import { formatDate } from "../services/timeSupport";
+import { Tooltip } from "react-tooltip";
 
-const NotebookItem = ({ title, createdAt, notebookId }) => {
-    const [isPopup, setPopup] = useState(false);
-    const modalRef = useRef();
-    const buttonRef = useRef();
-
-    const closeModal = () => {
-        setPopup(false);
-    };
-
-    const handleClickOutside = (event) => {
-        if (modalRef.current && !modalRef.current.contains(event.target)
-            && buttonRef.current && !buttonRef.current.contains(event.target)) {
-            closeModal();
-        }
-    }
-
+const NotebookItem = ({ title, createdAt, notebookId, setDeleteItem }) => {
     const handleDelete = async () => {
-
+        setDeleteItem({
+            notebookId: notebookId,
+            title: title,
+        })
     }
-
-    const handleRename = async () => {
-
-    }
-
-    useEffect(() => {
-        if (isPopup) {
-            document.addEventListener("mousedown", handleClickOutside);
-        }
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [isPopup]);
 
     return (
-        <button className="notebook-item">
-            <div onClick={() => setPopup((prev) => !prev)} ref={buttonRef}>
-                <img src={threedot} alt="Options" />
+        <div className="notebook-item">
+            <div onClick={handleDelete}>
+                <Trash width={25} height={25} />
             </div>
-            <a className="notebook-item-title" href={`/notebook/${notebookId}`}>{title}</a>
+            <a className="notebook-item-title"
+                href={`/notebook/${notebookId}`}
+                data-tooltip-content={title}
+                data-tooltip-id="notebook-item-tooltip"
+                data-tooltip-place="top">{title}</a>
+            <Tooltip id="notebook-item-tooltip"
+                arrowColor="transparent"
+                style={{
+                    height: '20px',
+                }} />
             <div className="notebook-item-date">{formatDate(createdAt)}</div>
-            {isPopup ? (
-                <div className="notebook-item-sub-menu" ref={modalRef}>
-                    <button>Delete</button>
-                    <button>Rename</button>
-                </div>
-            ) : null}
-
-        </button>
+        </div>
     );
 };
 

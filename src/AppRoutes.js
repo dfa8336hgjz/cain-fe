@@ -9,9 +9,10 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/notebooks" element={localStorage.getItem('token') ? <NotebookManagementPage /> : <LandingPage />} />
+            <Route path="/notebooks" element={<NotebookManagementPage />} />
             <Route path="*" element={<ErrorPage />} />
-            <Route path="/notebook/:notebookId" element={localStorage.getItem('token') ? <NotebookPage /> : <LandingPage />} />
+            <Route path="/notebook/:notebookId"
+                element={localStorage.getItem('token') ? <NotebookPage /> : <LandingPage />} />
         </Routes>
     );
 };

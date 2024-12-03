@@ -117,7 +117,7 @@
     display: flex;
     flex-direction: column;
     width: 360px;
-    height: 300px;
+    height: 250px;
     margin-left: auto;
     border: 3px solid #B2A9A9;
     border-top: none;
@@ -190,7 +190,7 @@
 
 .create-notebook-modal form {
     background-color: #DCF9FB;
-    width: 500px;
+    width: 550px;
     height: 200px;
     border-radius: 20px;
     position: relative;
@@ -214,17 +214,18 @@
 
 .create-notebook-modal form div p {
     color: #06AEAB;
+    margin-left: 10px;
     font-size: 18px;
     font-weight: bold;
 }
 
 .create-notebook-modal form div input {
-    width: 60%;
+    width: 55%;
     height: 30px;
     border-radius: 15px;
     border: 2px solid #347FFF;
     background: #FFF;
-    margin-right: 10px;
+    margin-right: 20px;
     padding-left: 10px;
     font-size: 14px;
     font-weight: 600;

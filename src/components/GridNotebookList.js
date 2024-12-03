@@ -4,7 +4,7 @@ import 'react-multi-carousel/lib/styles.css'
 import NotebookItem from "./NotebookItem"
 import '../styles/gridNotebook.css'
 
-const GridNoteList = ({ noteList, searchKeyword = "" }) => {
+const GridNoteList = ({ noteList, searchKeyword = "", setDeleteItem }) => {
     const [maxItemNum, setMaxItemNum] = useState(4);
     const responsive = {
         desktop: {
@@ -64,9 +64,11 @@ const GridNoteList = ({ noteList, searchKeyword = "" }) => {
                             if (note.title.toLowerCase().includes(searchKeyword.toLowerCase())) {
                                 return (
                                     <NotebookItem
+                                        key={note.notebook_id}
                                         title={note.title}
                                         createdAt={note.created_at}
                                         notebookId={note.notebook_id}
+                                        setDeleteItem={setDeleteItem}
                                     />
                                 );
                             }

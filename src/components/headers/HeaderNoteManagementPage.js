@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ReactComponent as CloseIcon } from '../../assets/icons/close2.svg'
 import API_URL from '../../services/config'
 
-const HeaderNoteManagementPage = () => {
+const HeaderNoteManagementPage = (props) => {
     const navigate = useNavigate();
     const modalRef = useRef();
     const buttonRef = useRef();
@@ -20,9 +20,10 @@ const HeaderNoteManagementPage = () => {
     }
 
     const handleCreateSubmit = async (e) => {
+        props.setLoading(true)
         e.preventDefault()
         try {
-            const response = await axios.post(`http://${API_URL}/notebook/create_notebook`, {},
+            const response = await axios.put(`http://${API_URL}/notebook/create_notebook`, {},
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -41,6 +42,7 @@ const HeaderNoteManagementPage = () => {
         catch (err) {
             console.log(err)
         }
+        props.setLoading(true)
     }
 
     useEffect(() => {
@@ -71,10 +73,6 @@ const HeaderNoteManagementPage = () => {
                     <p className="email">
                         phungminhchien09100203@gmail.com
                     </p>
-
-                    <button className="lightmode">
-                        Change to dark mode
-                    </button>
                     <button className="about-us">
                         About us
                     </button>
@@ -98,7 +96,7 @@ const HeaderNoteManagementPage = () => {
                             </button>
 
                             <div>
-                                <p>Notebook name:</p>
+                                <p>Notebook name</p>
                                 <input type="text" id="notebookName" defaultValue={"Untitled notebook"} />
                             </div>
 
