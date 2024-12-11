@@ -3,6 +3,8 @@ import GridNoteList from "../components/GridNotebookList";
 import HeaderNoteManagementPage from "../components/headers/HeaderNoteManagementPage";
 import LoadingPage from "./LoadingPage";
 import '../styles/notebookManagementPage.css'
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import API_URL from "../services/config";
 import axios from "axios";
 
@@ -40,12 +42,12 @@ const NotebookManagementPage = () => {
                     )
                     if (response2.status === 200) {
                         setRecentData(response2.data)
-
                         setLoading(false)
                     }
                 }
                 catch (err) {
                     console.log(err)
+                    toast("Cannot fetch data!", { type: "error" })
                 }
             }
         }
@@ -67,64 +69,67 @@ const NotebookManagementPage = () => {
                     setData(data.filter(notebook => notebook.notebook_id !== notebookId))
                     setRecentData(recentData.filter(notebook => notebook.notebook_id !== notebookId))
                     setDeleteItem(null);
+                    toast("Notebook deleted", { type: "success" })
                 }
                 else {
                     console.log(response)
+                    toast("Cannot delete notebook", { type: "error" })
                 }
             }
             catch (err) {
                 console.log(err)
+                toast("Cannot delete notebook", { type: "error" })
             }
         }
         setLoading(false)
     }
 
     return (
-        isLoading ? <LoadingPage /> :
-            <div className="notebook-management-page">
-                <HeaderNoteManagementPage setLoading={setLoading} />
-                <div className="notebook-management-content">
-                    <h2>Recent Notebooks</h2>
-                    <GridNoteList noteList={recentData} setDeleteItem={setDeleteItem} />
-                    <div className="all-notebook-title">
-                        <h2>All Notebooks</h2>
-                        <input
-                            type="text"
-                            placeholder="Search notebooks..."
-                            value={searchKeyword}
-                            onChange={(e) => {
-                                if (e.target.value === "") {
-                                    setSearchKeyword("")
-                                }
-                                else
-                                    setSearchKeyword(e.target.value)
-                            }}
-                        />
-                    </div>
-                    <GridNoteList noteList={data} searchKeyword={searchKeyword} setDeleteItem={setDeleteItem} />
+        <div className="notebook-management-page">
+            {isLoading ? <LoadingPage /> : null}
+            <HeaderNoteManagementPage setLoading={setLoading} />
+            <div className="notebook-management-content">
+                <h2>Recent Notebooks</h2>
+                <GridNoteList noteList={recentData} setDeleteItem={setDeleteItem} />
+                <div className="all-notebook-title">
+                    <h2>All Notebooks</h2>
+                    <input
+                        type="text"
+                        placeholder="Search notebooks..."
+                        value={searchKeyword}
+                        onChange={(e) => {
+                            if (e.target.value === "") {
+                                setSearchKeyword("")
+                            }
+                            else
+                                setSearchKeyword(e.target.value)
+                        }}
+                    />
                 </div>
-                {
-                    deleteItem ? (
-                        <div className="notebook-modal">
-                            <div className="modal-content"
-                                style={{ width: 350, height: 150 }}>
-                                <div className="delete-modal">
-                                    <p>Delete <i>{deleteItem.title}</i> ?</p>
-                                    <div>
-                                        <button onClick={handleDeleteNotebook}>
-                                            Delete
-                                        </button>
-                                        <div style={{ width: 20 }}></div>
-                                        <button onClick={() => setDeleteItem(null)}>
-                                            Cancel
-                                        </button>
-                                    </div>
+                <GridNoteList noteList={data} searchKeyword={searchKeyword} setDeleteItem={setDeleteItem} />
+            </div>
+            {
+                deleteItem ? (
+                    <div className="notebook-modal">
+                        <div className="modal-content"
+                            style={{ width: 350, height: 150 }}>
+                            <div className="delete-modal">
+                                <p>Delete <i>{deleteItem.title}</i> ?</p>
+                                <div>
+                                    <button onClick={handleDeleteNotebook}>
+                                        Delete
+                                    </button>
+                                    <div style={{ width: 20 }}></div>
+                                    <button onClick={() => setDeleteItem(null)}>
+                                        Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    ) : null
-                }
-            </div>
+                    </div>
+                ) : null
+            }
+        </div>
     );
 }
 

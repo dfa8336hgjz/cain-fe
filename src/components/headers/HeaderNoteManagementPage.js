@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { ReactComponent as CloseIcon } from '../../assets/icons/close2.svg'
 import API_URL from '../../services/config'
 
@@ -36,11 +37,13 @@ const HeaderNoteManagementPage = (props) => {
                 }
             )
             if (response.status === 200) {
+                toast("Notebook " + e.target.notebookName.value + " created successfully", { type: "success" })
                 navigate(`/notebook/${response.data.notebook_id}`)
             }
         }
         catch (err) {
             console.log(err)
+            toast("Cannot create notebook!", { type: "error" })
         }
         props.setLoading(true)
     }
@@ -80,8 +83,9 @@ const HeaderNoteManagementPage = (props) => {
                         () => {
                             localStorage.removeItem('token');
                             navigate('/')
+                            toast("Log out successfully!", { type: "success" })
                         }
-                    }>Sign out</button>
+                    }>Log out</button>
                 </div> : null
             }
 

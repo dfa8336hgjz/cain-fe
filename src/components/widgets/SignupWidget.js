@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import API_URL from '../../services/config'
 import '../../styles/signupWidget.css'
 
-function SignupWidget({ onClick }) {
+function SignupWidget(props) {
     const navigate = useNavigate();
     const [errorText, setErrorText] = useState({
         username: "",
@@ -24,6 +24,7 @@ function SignupWidget({ onClick }) {
     const [showSuccess, setShowSuccess] = useState(false)
 
     const handleLoginSubmit = async (e) => {
+        props.setLoading(true)
         e.preventDefault()
         if (isInputFilled(e)) {
             try {
@@ -50,8 +51,8 @@ function SignupWidget({ onClick }) {
                     setErrorText({ ...errorText, username: "Username already exists" })
                 }
             }
-
         }
+        props.setLoading(false)
     }
 
     const isInputFilled = (e) => {
@@ -113,7 +114,7 @@ function SignupWidget({ onClick }) {
                 <div className="modal-widget-top">
                     <img src={logo} alt="logo" className='logo' />
                     <h1 id="app-name">CAIN</h1>
-                    <button onClick={() => onClick(false)}>
+                    <button onClick={() => props.onClick(false)}>
                         <CloseIcon width={35} height={35} />
                     </button>
                 </div>

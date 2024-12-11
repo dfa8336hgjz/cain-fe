@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../../services/config';
+import { toast } from 'react-toastify';
 
 function HeaderNotebookPage(props) {
     const navigate = useNavigate();
@@ -36,11 +37,12 @@ function HeaderNotebookPage(props) {
                 )
                 if (response.status === 200) {
                     setCurrentName(name);
-                    console.log("rename success")
+                    toast("Rename successfully!", { type: "success" })
                 }
             }
             catch (err) {
                 console.log(err)
+                toast("Rename failed!", { type: "error" })
             }
         }
     }
@@ -72,8 +74,9 @@ function HeaderNotebookPage(props) {
                         () => {
                             localStorage.removeItem('token');
                             navigate('/')
+                            toast("Log out successfully!", { type: "success" })
                         }
-                    }>Sign out</button>
+                    }>Log out</button>
                 </div> : null
             }
         </div>

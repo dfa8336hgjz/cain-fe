@@ -6,12 +6,14 @@ import { ReactComponent as UpArrow } from '../assets/icons/upArrow.svg'
 import { ReactComponent as CloseIcon } from '../assets/icons/close2.svg'
 import { ReactComponent as ClearChatIcon } from '../assets/icons/clear.svg'
 import { ReactComponent as UploadIcon } from '../assets/icons/upload.svg'
+import MsgLoading from '../assets/loadingMessage.gif'
 import axios from "axios";
 import API_URL from '../services/config';
 import '../styles/notebookPage.css'
 import HumanMessage from "../components/message/HumanMessage";
 import BotMessage from "../components/message/BotMessage";
 import LoadingPage from "./LoadingPage";
+import { toast } from "react-toastify";
 
 const NotebookPage = () => {
     const { notebookId } = useParams();
@@ -23,6 +25,7 @@ const NotebookPage = () => {
     const [notebookName, setNotebookName] = useState("");
     const [sidebarOpen, setSideBarOpen] = useState(false);
     const [isCheckedAll, setCheckedAll] = useState(false);
+    const [loadingMessage, setLoadingMessage] = useState(false);
     const [isLoading, setLoading] = useState(false)
     const [showUploadModal, setShowUploadModal] = useState(false)
     const [showClearChatModal, setShowClearChatModal] = useState(false)
@@ -98,6 +101,7 @@ const NotebookPage = () => {
             }
             catch (err) {
                 console.log(err)
+                toast("Cannot get notebook data!", { type: "error" })
             }
         }
     }
@@ -122,6 +126,7 @@ const NotebookPage = () => {
             }
             catch (err) {
                 console.log(err)
+                toast("Cannot get message data!", { type: "error" })
             }
         }
 
@@ -160,6 +165,8 @@ const NotebookPage = () => {
             return
         }
 
+        setLoadingMessage(true)
+
         const data = {
             notebook_id: notebookId,
             message: humanMessage,
@@ -187,8 +194,11 @@ const NotebookPage = () => {
             }
             catch (err) {
                 console.log(err)
+                toast("Cannot send message", { type: "error" })
             }
         }
+
+        setLoadingMessage(false)
     }
 
     const clearChat = async () => {
@@ -204,13 +214,16 @@ const NotebookPage = () => {
                 if (response.status === 200) {
                     setMessage([]);
                     setShowClearChatModal(false)
+                    toast("Clear chat successfully!", { type: "success" })
                 }
                 else {
                     console.log(response)
+                    toast("Cannot clear chat!", { type: "error" })
                 }
             }
             catch (err) {
                 console.log(err)
+                toast("Cannot clear chat!", { type: "error" })
             }
         }
         setLoading(false)
@@ -227,6 +240,7 @@ const NotebookPage = () => {
     }
 
     const handleUploadAPICall = async (file) => {
+        setLoading(true)
         const formData = new FormData();
         formData.append('file', file);
         formData.append('notebook_id', notebookId)
@@ -243,6 +257,7 @@ const NotebookPage = () => {
             if (response.status === 200) {
                 setListFile([...listFile, response.data])
                 setShowUploadModal(false)
+                toast("File uploaded successfully", { type: "success" })
             }
             else {
                 setErrorText("Invalid file type. Only docx, pdf are allowed")
@@ -252,113 +267,121 @@ const NotebookPage = () => {
             console.log(err)
             setErrorText("Invalid file type. Only docx, pdf are allowed")
         }
+
+        setLoading(false)
     }
 
     return (
-        isLoading ? <LoadingPage /> :
-            <div className="notebook-page">
-                <SideBar isOpen={sidebarOpen}
-                    toggleSidebar={handleViewSidebar}
-                    notebookId={notebookId}
-                    listFile={listFile}
-                    isCheckedAll={isCheckedAll}
-                    setCheckedAll={setCheckedAll}
-                    addFileFunc={selectFile}
-                    removeFileFunc={unselectFile}
-                    openModalFunc={setShowUploadModal} />
-                <div className="notebook-page-content">
-                    <HeaderNotebookPage onClick={handleViewSidebar} name={notebookName} notebookId={notebookId} />
-                    <div className="message-field">
-                        <div className="message-box">
-                            {
-                                message.map((message, index) => {
-                                    if (message.message_id.startsWith('b')) {
-                                        return <BotMessage key={index} message={message.content} />
-                                    }
-                                    else {
-                                        return <HumanMessage key={index} message={message.content} />
-                                    }
-                                })
-                            }
-                            <div ref={messagesEndRef} />
-                        </div>
-                        <div className="chat-field">
-                            <button className="clear-chat-button"
-                                onClick={() => setShowClearChatModal(true)}>
-                                <ClearChatIcon width={25} height={25} />
+        <div className="notebook-page">
+            {isLoading ? <LoadingPage /> : null}
+            <SideBar isOpen={sidebarOpen}
+                toggleSidebar={handleViewSidebar}
+                notebookId={notebookId}
+                listFile={listFile}
+                isCheckedAll={isCheckedAll}
+                setCheckedAll={setCheckedAll}
+                addFileFunc={selectFile}
+                removeFileFunc={unselectFile}
+                openModalFunc={setShowUploadModal} />
+            <div className="notebook-page-content">
+                <HeaderNotebookPage onClick={handleViewSidebar} name={notebookName} notebookId={notebookId} />
+                <div className="message-field">
+                    <div className="message-box">
+                        {
+                            message.map((message, index) => {
+                                if (message.message_id.startsWith('b')) {
+                                    return <BotMessage key={index} message={message.content} />
+                                }
+                                else {
+                                    return <HumanMessage key={index} message={message.content} />
+                                }
+                            })
+                        }
+                        {
+                            loadingMessage ?
+                                <div className="bot-message">
+                                    <img src={MsgLoading} width={65} height={40} />
+                                </div> : null
+                        }
+                        <div ref={messagesEndRef} />
+                    </div>
+                    <div className="chat-field">
+                        <button className="clear-chat-button"
+                            onClick={() => setShowClearChatModal(true)}>
+                            <ClearChatIcon width={25} height={25} />
+                        </button>
+                        <div className="chatbox">
+                            <input type="text"
+                                onKeyDown={handleKeyPress}
+                                className="chat-input"
+                                placeholder="Type your message" />
+                            <button onClick={receiveBotMessage}>
+                                <UpArrow width={25} height={25} />
                             </button>
-                            <div className="chatbox">
-                                <input type="text"
-                                    onKeyDown={handleKeyPress}
-                                    className="chat-input"
-                                    placeholder="Type your message" />
-                                <button onClick={receiveBotMessage}>
-                                    <UpArrow width={25} height={25} />
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
-
-                {
-                    showUploadModal ?
-                        <div className="notebook-page-modal-container">
-                            <div className="notebook-page-modal"
-                                style={{
-                                    width: "50%",
-                                    height: "60%",
-                                    minWidth: 500,
-                                    minHeight: 300
-                                }}>
-                                <button onClick={() => setShowUploadModal(false)}>
-                                    <CloseIcon className="close-icon" width={35} height={35} />
-                                </button>
-
-                                <p className="modal-title">Add file source</p>
-                                <div className="upload-click-field"
-                                    onClick={uploadFileDialogOpen}
-                                    onDrop={handleDrop}
-                                    onDragOver={handleDragOver}>
-                                    <div className="upload-button">
-                                        <UploadIcon width={50} height={50} />
-                                    </div>
-                                    <p style={{ fontSize: "20px" }}>
-                                        Upload your .pdf or .docx file
-                                    </p>
-                                    <p>Drag and drop or select a file to upload</p>
-                                    <p className="error-text">{errorText}</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        : null
-                }
-                {
-                    showClearChatModal ?
-                        <div className="notebook-page-modal-container">
-                            <div className="notebook-page-modal"
-                                style={{
-                                    width: "30%",
-                                    minWidth: 500,
-                                    height: 100
-                                }}>
-                                <p className="clear-chat-title">
-                                    Are you sure you want to clear the chat history?</p>
-                                <div className="clear-chat-modal-button">
-                                    <div onClick={clearChat}>Yes</div>
-                                    <div onClick={() => setShowClearChatModal(false)}>No</div>
-                                </div>
-                            </div>
-                        </div>
-                        : null
-                }
-
-                <input id="upload-file"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={uploadFile}
-                />
             </div>
+
+            {
+                showUploadModal ?
+                    <div className="notebook-page-modal-container">
+                        <div className="notebook-page-modal"
+                            style={{
+                                width: "50%",
+                                height: "60%",
+                                minWidth: 500,
+                                minHeight: 300
+                            }}>
+                            <button onClick={() => setShowUploadModal(false)}>
+                                <CloseIcon className="close-icon" width={35} height={35} />
+                            </button>
+
+                            <p className="modal-title">Add file source</p>
+                            <div className="upload-click-field"
+                                onClick={uploadFileDialogOpen}
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}>
+                                <div className="upload-button">
+                                    <UploadIcon width={50} height={50} />
+                                </div>
+                                <p style={{ fontSize: "20px" }}>
+                                    Upload your .pdf or .docx file
+                                </p>
+                                <p>Drag and drop or select a file to upload</p>
+                                <p style={{ color: "red", fontWeight: "normal" }}>{errorText}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    : null
+            }
+            {
+                showClearChatModal ?
+                    <div className="notebook-page-modal-container">
+                        <div className="notebook-page-modal"
+                            style={{
+                                width: "30%",
+                                minWidth: 500,
+                                height: 100
+                            }}>
+                            <p className="clear-chat-title">
+                                Are you sure you want to clear the chat history?</p>
+                            <div className="clear-chat-modal-button">
+                                <div onClick={clearChat}>Yes</div>
+                                <div onClick={() => setShowClearChatModal(false)}>No</div>
+                            </div>
+                        </div>
+                    </div>
+                    : null
+            }
+
+            <input id="upload-file"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={uploadFile}
+            />
+        </div>
     )
 }
 

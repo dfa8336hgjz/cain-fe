@@ -8,8 +8,9 @@ import API_URL from '../../services/config'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
-function LoginWidget({ onClick }) {
+function LoginWidget(props) {
     const navigate = useNavigate();
     const [errorText, setErrorText] = useState({
         username: "",
@@ -18,6 +19,7 @@ function LoginWidget({ onClick }) {
     const [showPassword, setShowPassword] = useState(false)
 
     const handleLoginSubmit = async (e) => {
+        props.setLoading(true)
         e.preventDefault()
         if (isInputFilled(e)) {
             try {
@@ -34,16 +36,16 @@ function LoginWidget({ onClick }) {
                 )
                 if (response.status === 200) {
                     setErrorText({ ...errorText, password: "" })
-                    console.log("Login success")
                     localStorage.setItem('token', response.data)
                     navigate('/notebooks')
+                    toast("Login successfully!", { type: "success" })
                 }
             }
             catch (err) {
                 setErrorText({ ...errorText, password: "Wrong username or password" })
             }
-
         }
+        props.setLoading(false)
     }
 
     const isInputFilled = (e) => {
@@ -79,7 +81,7 @@ function LoginWidget({ onClick }) {
                 <div className="modal-widget-top">
                     <img src={logo} alt="logo" className='logo' />
                     <h1 id="app-name">CAIN</h1>
-                    <button onClick={() => onClick(false)}>
+                    <button onClick={() => props.onClick(false)}>
                         <CloseIcon width={35} height={35} />
                     </button>
                 </div>

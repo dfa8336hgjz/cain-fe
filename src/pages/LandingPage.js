@@ -11,10 +11,12 @@ import '../styles/header.css'
 import LoginWidget from '../components/widgets/LoginWidget';
 import SignupWidget from '../components/widgets/SignupWidget';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from './LoadingPage';
 
 function LandingPage() {
     const [loginPopup, setLoginPopup] = useState(false);
     const [signupPopup, setSignupPopup] = useState(false);
+    const [isLoading, setLoading] = useState(false)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -45,8 +47,9 @@ function LandingPage() {
 
     return (
         <div className="landing-page">
-            {loginPopup ? <LoginWidget onClick={setLoginPopup} /> : null}
-            {signupPopup ? <SignupWidget onClick={setSignupPopup} /> : null}
+            {isLoading ? <LoadingPage /> : null}
+            {loginPopup ? <LoginWidget onClick={setLoginPopup} setLoading={setLoading} /> : null}
+            {signupPopup ? <SignupWidget onClick={setSignupPopup} setLoading={setLoading} /> : null}
             <HeaderLandingPage loginPopup={setLoginPopup} signupPopup={setSignupPopup} />
             <div className='landing-page-content'>
                 <img src={logo} alt="" className='logo' />
