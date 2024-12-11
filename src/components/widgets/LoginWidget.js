@@ -36,7 +36,9 @@ function LoginWidget(props) {
                 )
                 if (response.status === 200) {
                     setErrorText({ ...errorText, password: "" })
-                    localStorage.setItem('token', response.data)
+                    localStorage.setItem('token', response.data.token)
+                    localStorage.setItem('info', JSON.stringify({ username: response.data.username, fullname: response.data.fullname, email: response.data.email }))
+
                     navigate('/notebooks')
                     toast("Login successfully!", { type: "success" })
                 }

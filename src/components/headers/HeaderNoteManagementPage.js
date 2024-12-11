@@ -71,10 +71,10 @@ const HeaderNoteManagementPage = (props) => {
             {showUserInfo ?
                 <div className='user-info' ref={modalRef}>
                     <p className="name">
-                        PHUNG MINH CHIEN
+                        {JSON.parse(localStorage.getItem("info")).fullname}
                     </p>
                     <p className="email">
-                        phungminhchien09100203@gmail.com
+                        {JSON.parse(localStorage.getItem("info")).email}
                     </p>
                     <button className="about-us">
                         About us
@@ -82,6 +82,7 @@ const HeaderNoteManagementPage = (props) => {
                     <button className='signout' onClick={
                         () => {
                             localStorage.removeItem('token');
+                            localStorage.removeItem('info');
                             navigate('/')
                             toast("Log out successfully!", { type: "success" })
                         }

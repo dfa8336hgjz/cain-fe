@@ -61,10 +61,10 @@ function HeaderNotebookPage(props) {
             {showUserInfo ?
                 <div className='user-info' ref={modalRef}>
                     <p className="name">
-                        PHUNG MINH CHIEN
+                        {JSON.parse(localStorage.getItem("info")).fullname}
                     </p>
                     <p className="email">
-                        phungminhchien09100203@gmail.com
+                        {JSON.parse(localStorage.getItem("info")).email}
                     </p>
 
                     <button className="about-us">

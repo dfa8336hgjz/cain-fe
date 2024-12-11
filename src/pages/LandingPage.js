@@ -39,6 +39,7 @@ function LandingPage() {
                 catch (err) {
                     console.log("Expired token")
                     localStorage.removeItem('token');
+                    localStorage.removeItem('info');
                 }
             }
         }
